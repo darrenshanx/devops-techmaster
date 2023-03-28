@@ -1,0 +1,1101 @@
+
+Authenticating with public key "Imported-Openssh-Key"
+Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-1031-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Thu Mar 23 19:02:00 +07 2023
+
+  System load:  0.26416015625      Processes:             114
+  Usage of /:   18.5% of 14.36GB   Users logged in:       0
+  Memory usage: 6%                 IPv4 address for ens5: 172.31.99.9
+  Swap usage:   0%
+
+ * Ubuntu Pro delivers the most comprehensive open source security and
+   compliance features.
+
+   https://ubuntu.com/aws/pro
+
+ * Introducing Expanded Security Maintenance for Applications.
+   Receive updates to over 25,000 software packages with your
+   Ubuntu Pro subscription. Free for personal use.
+
+     https://ubuntu.com/aws/pro
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Tue Mar 21 19:36:37 2023 from 183.81.8.38
+ubuntu@devops-vm:~$ sudo su -
+root@devops-vm:~# ls
+first_repo  local-repo  snap  tes.txt  test-repo
+root@devops-vm:~# rm -rf test-repo/
+root@devops-vm:~# git clone git@github.com:darrenshanx/test-repo.git
+Cloning into 'test-repo'...
+remote: Enumerating objects: 9, done.
+remote: Counting objects: 100% (9/9), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 9 (delta 1), reused 2 (delta 0), pack-reused 0
+Receiving objects: 100% (9/9), done.
+Resolving deltas: 100% (1/1), done.
+root@devops-vm:~# ls -al
+total 64
+drwx------  9 root root 4096 Mar 23 19:25 .
+drwxr-xr-x 19 root root 4096 Mar 23 18:59 ..
+-rw-------  1 root root 2980 Mar 21 22:01 .bash_history
+-rw-r--r--  1 root root 3106 Oct 15  2021 .bashrc
+drwx------  4 root root 4096 Mar  7 20:47 .config
+drwxr-xr-x  7 root root 4096 Mar 21 20:44 .git
+-rw-r--r--  1 root root  111 Mar 21 19:38 .gitconfig
+-rw-------  1 root root   20 Mar 21 21:49 .lesshst
+-rw-r--r--  1 root root  161 Jul  9  2019 .profile
+drwx------  2 root root 4096 Mar 21 21:15 .ssh
+-rw-------  1 root root 3390 Mar 21 19:38 .viminfo
+drwxr-xr-x  3 root root 4096 Mar 21 20:51 first_repo
+drwxr-xr-x  3 root root 4096 Mar 21 21:33 local-repo
+drwx------  4 root root 4096 Mar  1 11:16 snap
+-rw-r--r--  1 root root    7 Mar 13 10:18 tes.txt
+drwxr-xr-x  3 root root 4096 Mar 23 19:25 test-repo
+root@devops-vm:~# cd test-repo/
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  note.txt
+root@devops-vm:~/test-repo# git remote -v
+origin  git@github.com:darrenshanx/test-repo.git (fetch)
+origin  git@github.com:darrenshanx/test-repo.git (push)
+root@devops-vm:~/test-repo# git branch
+* main
+root@devops-vm:~/test-repo# git branch feature
+root@devops-vm:~/test-repo# git branch
+  feature
+* main
+root@devops-vm:~/test-repo# git checkout feature
+Switched to branch 'feature'
+root@devops-vm:~/test-repo# git branch
+* feature
+  main
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  note.txt
+root@devops-vm:~/test-repo# git checkout main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  note.txt
+root@devops-vm:~/test-repo# git checkout -b alpha
+Switched to a new branch 'alpha'
+root@devops-vm:~/test-repo# git branch
+* alpha
+  feature
+  main
+root@devops-vm:~/test-repo# git branch -d feature
+Deleted branch feature (was e28fba0).
+root@devops-vm:~/test-repo# git branch
+* alpha
+  main
+root@devops-vm:~/test-repo# echo "New content" > newfile.txt
+root@devops-vm:~/test-repo# git add newfile.txt
+root@devops-vm:~/test-repo# git commit -m "add newfile.txt"
+[alpha cb63437] add newfile.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 newfile.txt
+root@devops-vm:~/test-repo# git status
+On branch alpha
+nothing to commit, working tree clean
+root@devops-vm:~/test-repo# ls -al
+total 28
+drwxr-xr-x 3 root root 4096 Mar 23 19:41 .
+drwx------ 9 root root 4096 Mar 23 19:39 ..
+drwxr-xr-x 8 root root 4096 Mar 23 19:41 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root   12 Mar 23 19:41 newfile.txt
+-rw-r--r-- 1 root root   14 Mar 23 19:25 note.txt
+root@devops-vm:~/test-repo# git log
+commit cb63437b09e79d32d79439a926bc219569555792 (HEAD -> alpha)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 19:41:48 2023 +0700
+
+    add newfile.txt
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git switch main
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+root@devops-vm:~/test-repo# ls -al
+total 24
+drwxr-xr-x 3 root root 4096 Mar 23 19:42 .
+drwx------ 9 root root 4096 Mar 23 19:42 ..
+drwxr-xr-x 8 root root 4096 Mar 23 19:42 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root   14 Mar 23 19:25 note.txt
+root@devops-vm:~/test-repo# git log
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (HEAD -> main, origin/main, origin/HEAD)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git branch
+  alpha
+* main
+root@devops-vm:~/test-repo# git checkout alpha
+Switched to branch 'alpha'
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  newfile.txt  note.txt
+root@devops-vm:~/test-repo# git push origin alpha
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 351 bytes | 351.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'alpha' on GitHub by visiting:
+remote:      https://github.com/darrenshanx/test-repo/pull/new/alpha
+remote:
+To github.com:darrenshanx/test-repo.git
+ * [new branch]      alpha -> alpha
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  newfile.txt  note.txt
+root@devops-vm:~/test-repo# ls -l
+total 16
+-rw-r--r-- 1 root root 29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root 19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root 12 Mar 23 19:45 newfile.txt
+-rw-r--r-- 1 root root 14 Mar 23 19:25 note.txt
+root@devops-vm:~/test-repo# rm note.txt
+root@devops-vm:~/test-repo# git status
+On branch alpha
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    note.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+root@devops-vm:~/test-repo# git commit -m "delete note.txt"
+On branch alpha
+Changes not staged for commit:
+  (use "git add/rm <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        deleted:    note.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+root@devops-vm:~/test-repo# git rm note.txt
+rm 'note.txt'
+root@devops-vm:~/test-repo# git status
+On branch alpha
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    note.txt
+
+root@devops-vm:~/test-repo# git commit -m "remove note.txt"
+[alpha 23cec05] remove note.txt
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 note.txt
+root@devops-vm:~/test-repo# git push origin alpha
+Enumerating objects: 3, done.
+Counting objects: 100% (3/3), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (2/2), 221 bytes | 221.00 KiB/s, done.
+Total 2 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:darrenshanx/test-repo.git
+   cb63437..23cec05  alpha -> alpha
+root@devops-vm:~/test-repo# git fecht
+git: 'fecht' is not a git command. See 'git --help'.
+
+The most similar command is
+        fetch
+root@devops-vm:~/test-repo# git fetch
+root@devops-vm:~/test-repo# git pull
+There is no tracking information for the current branch.
+Please specify which branch you want to merge with.
+See git-pull(1) for details.
+
+    git pull <remote> <branch>
+
+If you wish to set tracking information for this branch you can do so with:
+
+    git branch --set-upstream-to=origin/<branch> alpha
+
+root@devops-vm:~/test-repo# git pull origin alpha
+From github.com:darrenshanx/test-repo
+ * branch            alpha      -> FETCH_HEAD
+Already up to date.
+root@devops-vm:~/test-repo# git log
+commit 23cec05ebe3162afae28d9444fc7175d26768f85 (HEAD -> alpha, origin/alpha)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 19:51:06 2023 +0700
+
+    remove note.txt
+
+commit cb63437b09e79d32d79439a926bc219569555792
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 19:41:48 2023 +0700
+
+    add newfile.txt
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git fetch
+From github.com:darrenshanx/test-repo
+ * [new branch]      staging    -> origin/staging
+root@devops-vm:~/test-repo# git branch
+* alpha
+  main
+root@devops-vm:~/test-repo# git branch -a
+* alpha
+  main
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/alpha
+  remotes/origin/main
+  remotes/origin/staging
+root@devops-vm:~/test-repo# git checkout staging
+Branch 'staging' set up to track remote branch 'staging' from 'origin'.
+Switched to a new branch 'staging'
+root@devops-vm:~/test-repo# ls -l
+total 12
+-rw-r--r-- 1 root root 29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root 19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root 14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git branch -a
+  alpha
+  main
+* staging
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/alpha
+  remotes/origin/main
+  remotes/origin/staging
+root@devops-vm:~/test-repo# git branch
+  alpha
+  main
+* staging
+root@devops-vm:~/test-repo# ls -al
+total 24
+drwxr-xr-x 3 root root 4096 Mar 23 20:01 .
+drwx------ 9 root root 4096 Mar 23 20:26 ..
+drwxr-xr-x 8 root root 4096 Mar 23 20:01 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git branch production
+root@devops-vm:~/test-repo# git branch
+  alpha
+  main
+  production
+* staging
+root@devops-vm:~/test-repo# ls
+README.md  hello.py  note.txt
+root@devops-vm:~/test-repo# echo "implement new feature: manage cart" > feature.txt
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  hello.py  note.txt
+root@devops-vm:~/test-repo# cat feature.txt
+implement new feature: manage cart
+root@devops-vm:~/test-repo# git add feature.txt
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  hello.py  note.txt
+root@devops-vm:~/test-repo# git status
+On branch staging
+Your branch is up to date with 'origin/staging'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   feature.txt
+
+root@devops-vm:~/test-repo# git commit -m "new feature: manage cart"
+[staging 6d36895] new feature: manage cart
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+root@devops-vm:~/test-repo# git switch production
+Switched to branch 'production'
+root@devops-vm:~/test-repo# ls -al
+total 24
+drwxr-xr-x 3 root root 4096 Mar 23 20:29 .
+drwx------ 9 root root 4096 Mar 23 20:26 ..
+drwxr-xr-x 8 root root 4096 Mar 23 20:29 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git merge staging
+Updating e28fba0..6d36895
+Fast-forward
+ feature.txt | 1 +
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature.txt
+root@devops-vm:~/test-repo# ls -al
+total 28
+drwxr-xr-x 3 root root 4096 Mar 23 20:29 .
+drwx------ 9 root root 4096 Mar 23 20:26 ..
+drwxr-xr-x 8 root root 4096 Mar 23 20:29 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   35 Mar 23 20:29 feature.txt
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git log
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (HEAD -> production, staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/staging, origin/main, origin/HEAD, m                        ain)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git switch staging
+Switched to branch 'staging'
+Your branch is ahead of 'origin/staging' by 1 commit.
+  (use "git push" to publish your local commits)
+root@devops-vm:~/test-repo# git push origin staging
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 380 bytes | 380.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:darrenshanx/test-repo.git
+   e28fba0..6d36895  staging -> staging
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  hello.py  note.txt
+root@devops-vm:~/test-repo# git switch production
+Switched to branch 'production'
+root@devops-vm:~/test-repo# git push origin production
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'production' on GitHub by visiting:
+remote:      https://github.com/darrenshanx/test-repo/pull/new/production
+remote:
+To github.com:darrenshanx/test-repo.git
+ * [new branch]      production -> production
+root@devops-vm:~/test-repo# git switch staging
+Switched to branch 'staging'
+Your branch is up to date with 'origin/staging'.
+root@devops-vm:~/test-repo# echo "very fast, implement new feature: payment gate" > feature_                        payment.txt
+root@devops-vm:~/test-repo# cat feature_payment.txt
+very fast, implement new feature: payment gate
+root@devops-vm:~/test-repo# git add feature_payment.txt
+root@devops-vm:~/test-repo# git status
+On branch staging
+Your branch is up to date with 'origin/staging'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   feature_payment.txt
+
+root@devops-vm:~/test-repo# git commit -am "new feature: payment gateway"
+[staging 2bdfbc4] new feature: payment gateway
+ 1 file changed, 1 insertion(+)
+ create mode 100644 feature_payment.txt
+root@devops-vm:~/test-repo# git log
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d (HEAD -> staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (origin/staging, origin/production, producti                        on)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git push origin staging
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 332 bytes | 332.00 KiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To github.com:darrenshanx/test-repo.git
+   6d36895..2bdfbc4  staging -> staging
+root@devops-vm:~/test-repo# git switch staging
+Already on 'staging'
+Your branch is up to date with 'origin/staging'.
+root@devops-vm:~/test-repo# git fetch
+remote: Enumerating objects: 1, done.
+remote: Counting objects: 100% (1/1), done.
+remote: Total 1 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (1/1), 640 bytes | 640.00 KiB/s, done.
+From github.com:darrenshanx/test-repo
+   6d36895..7d93910  production -> origin/production
+root@devops-vm:~/test-repo# git pull origin staging
+From github.com:darrenshanx/test-repo
+ * branch            staging    -> FETCH_HEAD
+Already up to date.
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  feature_payment.txt  hello.py  note.txt
+root@devops-vm:~/test-repo# git branch dev
+root@devops-vm:~/test-repo# git branch
+  alpha
+  dev
+  main
+  production
+* staging
+root@devops-vm:~/test-repo# touch hello.txt
+root@devops-vm:~/test-repo# touch lab_6.txt
+root@devops-vm:~/test-repo# vim hello.
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  feature_payment.txt  hello.py  hello.txt  lab_6.txt  note.txt
+root@devops-vm:~/test-repo# cat hello.py
+print('Hello Git')
+root@devops-vm:~/test-repo# git branch
+  alpha
+  dev
+  main
+  production
+* staging
+root@devops-vm:~/test-repo# vim hello.txt
+root@devops-vm:~/test-repo# cat
+cat     catman
+root@devops-vm:~/test-repo# cat hello.txt
+print("Hello python")
+console.log("Hello Javascript")
+echo "Hello bash"
+root@devops-vm:~/test-repo# git add .
+root@devops-vm:~/test-repo# git commit -am "hello in python, js, bash"
+[staging fa91c59] hello in python, js, bash
+ 2 files changed, 3 insertions(+)
+ create mode 100644 hello.txt
+ create mode 100644 lab_6.txt
+root@devops-vm:~/test-repo# git switch dev
+Switched to branch 'dev'
+root@devops-vm:~/test-repo# touch hello.txt
+root@devops-vm:~/test-repo# touch lab_7.txt
+root@devops-vm:~/test-repo# vim hello.txt
+root@devops-vm:~/test-repo# cat hello.txt
+print("Hello python")
+System.out.println("Hello Java");
+fmt.Println("Hello Golang")
+root@devops-vm:~/test-repo# git add .
+root@devops-vm:~/test-repo# git commit -am "hello in python, java, golang"
+[dev 848a4ac] hello in python, java, golang
+ 2 files changed, 3 insertions(+)
+ create mode 100644 hello.txt
+ create mode 100644 lab_7.txt
+root@devops-vm:~/test-repo# git merge staging
+Auto-merging hello.txt
+CONFLICT (add/add): Merge conflict in hello.txt
+Automatic merge failed; fix conflicts and then commit the result.
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  feature_payment.txt  hello.py  hello.txt  lab_6.txt  lab_7.txt  note.txt
+root@devops-vm:~/test-repo# vim hello.txt
+root@devops-vm:~/test-repo# git status
+On branch dev
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Changes to be committed:
+        new file:   lab_6.txt
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+        both added:      hello.txt
+
+root@devops-vm:~/test-repo# git add .
+root@devops-vm:~/test-repo# git status
+On branch dev
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+        modified:   hello.txt
+        new file:   lab_6.txt
+
+root@devops-vm:~/test-repo# git commit -am "merge code from staging and resolve conflict"
+[dev cf916b9] merge code from staging and resolve conflict
+root@devops-vm:~/test-repo# git switch staging
+Switched to branch 'staging'
+Your branch is ahead of 'origin/staging' by 1 commit.
+  (use "git push" to publish your local commits)
+root@devops-vm:~/test-repo# git merge dev
+Updating fa91c59..cf916b9
+Fast-forward
+ hello.txt | 3 ++-
+ lab_7.txt | 0
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+ create mode 100644 lab_7.txt
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  feature_payment.txt  hello.py  hello.txt  lab_6.txt  lab_7.txt  note.txt
+root@devops-vm:~/test-repo# cat hello.txt
+print("Hello python")
+System.out.println("Hello Java");
+fmt.Println("Hello Golang")
+echo "Hello bash"
+root@devops-vm:~/test-repo# git branch
+  alpha
+  dev
+  main
+  production
+* staging
+root@devops-vm:~/test-repo# git push origin staging
+Enumerating objects: 11, done.
+Counting objects: 100% (11/11), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (9/9), done.
+Writing objects: 100% (10/10), 871 bytes | 871.00 KiB/s, done.
+Total 10 (delta 5), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (5/5), completed with 1 local object.
+To github.com:darrenshanx/test-repo.git
+   2bdfbc4..cf916b9  staging -> staging
+root@devops-vm:~/test-repo# git push origin dev
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+remote:
+remote: Create a pull request for 'dev' on GitHub by visiting:
+remote:      https://github.com/darrenshanx/test-repo/pull/new/dev
+remote:
+To github.com:darrenshanx/test-repo.git
+ * [new branch]      dev -> dev
+root@devops-vm:~/test-repo# git fetch
+root@devops-vm:~/test-repo# echo "file a" > file_a
+git add file_a
+git commit -m "A"
+
+echo "file b" > file_b
+git add file_b
+git commit -m "B"
+
+echo "file c" > file_c
+git add file_c
+git commit -m "C"
+
+echo "file d" > file_d
+git add file_d
+git commit -m "D"
+[staging 7463114] A
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_a
+[staging 2e31074] B
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_b
+[staging e1fbb9f] C
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_c
+[staging 8329d72] D
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_d
+root@devops-vm:~/test-repo# git push origin staging
+Enumerating objects: 13, done.
+Counting objects: 100% (13/13), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (12/12), 895 bytes | 895.00 KiB/s, done.
+Total 12 (delta 4), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (4/4), completed with 1 local object.
+To github.com:darrenshanx/test-repo.git
+   cf916b9..8329d72  staging -> staging
+root@devops-vm:~/test-repo# ls
+README.md    feature_payment.txt  file_b  file_d    hello.txt  lab_7.txt
+feature.txt  file_a               file_c  hello.py  lab_6.txt  note.txt
+root@devops-vm:~/test-repo# git log
+commit 8329d72ea5694a03d4c00d12428edb18bb18979c (HEAD -> staging, origin/staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    D
+
+commit e1fbb9ff9049be57999dfb79171400866bac3fb3
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    C
+
+commit 2e31074285dcde21c5becc2f0db4b7bf68abf5ac
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    B
+
+commit 746311427b5d32eb65b26573db0200ac7df63e80
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    A
+
+commit cf916b9bcc2e61945a006b6512f88501e31fc7b1 (origin/dev, dev)
+Merge: 848a4ac fa91c59
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:22:13 2023 +0700
+
+    merge code from staging and resolve conflict
+
+commit 848a4ac4e65f5feb5822fe9bebeb84aaa46a937f
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:18:39 2023 +0700
+
+    hello in python, java, golang
+
+commit fa91c59057902e9476b4bc997eef632cb418c588
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:15:34 2023 +0700
+
+    hello in python, js, bash
+
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (production)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+root@devops-vm:~/test-repo# git reset --hard 2e31074285dcde21c5becc2f0db4b7bf68abf5ac
+HEAD is now at 2e31074 B
+root@devops-vm:~/test-repo# ls -al
+total 44
+drwxr-xr-x 3 root root 4096 Mar 23 21:52 .
+drwx------ 9 root root 4096 Mar 23 21:52 ..
+drwxr-xr-x 8 root root 4096 Mar 23 21:52 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   35 Mar 23 20:29 feature.txt
+-rw-r--r-- 1 root root   47 Mar 23 20:35 feature_payment.txt
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_a
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_b
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root  103 Mar 23 21:24 hello.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:19 lab_6.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:24 lab_7.txt
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git log
+commit 2e31074285dcde21c5becc2f0db4b7bf68abf5ac (HEAD -> staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    B
+
+commit 746311427b5d32eb65b26573db0200ac7df63e80
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    A
+
+commit cf916b9bcc2e61945a006b6512f88501e31fc7b1 (origin/dev, dev)
+Merge: 848a4ac fa91c59
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:22:13 2023 +0700
+
+    merge code from staging and resolve conflict
+
+commit 848a4ac4e65f5feb5822fe9bebeb84aaa46a937f
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:18:39 2023 +0700
+
+    hello in python, java, golang
+
+commit fa91c59057902e9476b4bc997eef632cb418c588
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:15:34 2023 +0700
+
+    hello in python, js, bash
+
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (production)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Tue Mar 21 21:22:39 2023 +0700
+
+    Create new file: hello.py
+
+commit 052bc3fba9e7598dc093bf65aafc11e998a604d7
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:13:36 2023 +0700
+
+    Initial commit
+root@devops-vm:~/test-repo# git push -f origin
+Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
+To github.com:darrenshanx/test-repo.git
+ + 8329d72...2e31074 staging -> staging (forced update)
+root@devops-vm:~/test-repo# echo "file c" > file_c
+git add file_c
+git commit -m "C"
+
+echo "file d" > file_d
+git add file_d
+git commit -m "D"
+[staging d04dd56] C
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_c
+[staging 5788294] D
+ 1 file changed, 1 insertion(+)
+ create mode 100644 file_d
+root@devops-vm:~/test-repo# ls -al
+total 52
+drwxr-xr-x 3 root root 4096 Mar 23 21:54 .
+drwx------ 9 root root 4096 Mar 23 21:53 ..
+drwxr-xr-x 8 root root 4096 Mar 23 21:54 .git
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   35 Mar 23 20:29 feature.txt
+-rw-r--r-- 1 root root   47 Mar 23 20:35 feature_payment.txt
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_a
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_b
+-rw-r--r-- 1 root root    7 Mar 23 21:54 file_c
+-rw-r--r-- 1 root root    7 Mar 23 21:54 file_d
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root  103 Mar 23 21:24 hello.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:19 lab_6.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:24 lab_7.txt
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# git log
+commit 578829401034896cc4b5fa224e05e7a35fe479f4 (HEAD -> staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    D
+
+commit d04dd5669d7e41cf5ea7474e8c6b922014e7afee
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    C
+
+commit 2e31074285dcde21c5becc2f0db4b7bf68abf5ac (origin/staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    B
+
+commit 746311427b5d32eb65b26573db0200ac7df63e80
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    A
+
+commit cf916b9bcc2e61945a006b6512f88501e31fc7b1 (origin/dev, dev)
+Merge: 848a4ac fa91c59
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:22:13 2023 +0700
+
+    merge code from staging and resolve conflict
+
+commit 848a4ac4e65f5feb5822fe9bebeb84aaa46a937f
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:18:39 2023 +0700
+
+    hello in python, java, golang
+
+commit fa91c59057902e9476b4bc997eef632cb418c588
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:15:34 2023 +0700
+
+    hello in python, js, bash
+
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (production)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+root@devops-vm:~/test-repo# git push origin staging
+Enumerating objects: 7, done.
+Counting objects: 100% (7/7), done.
+Delta compression using up to 2 threads
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (6/6), 478 bytes | 478.00 KiB/s, done.
+Total 6 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 1 local object.
+To github.com:darrenshanx/test-repo.git
+   2e31074..5788294  staging -> staging
+root@devops-vm:~/test-repo# git revert 578829401034896cc4b5fa224e05e7a35fe479f4
+hint: Waiting for your editor to close the file... error: cannot run main: No such file or directory
+error: unable to start editor 'main'
+Please supply the message using either -m or -F option.
+root@devops-vm:~/test-repo# git status
+On branch staging
+Your branch is up to date with 'origin/staging'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        deleted:    file_d
+
+root@devops-vm:~/test-repo# git log
+commit 578829401034896cc4b5fa224e05e7a35fe479f4 (HEAD -> staging, origin/staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    D
+
+commit d04dd5669d7e41cf5ea7474e8c6b922014e7afee
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    C
+
+commit 2e31074285dcde21c5becc2f0db4b7bf68abf5ac
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    B
+
+commit 746311427b5d32eb65b26573db0200ac7df63e80
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    A
+
+commit cf916b9bcc2e61945a006b6512f88501e31fc7b1 (origin/dev, dev)
+Merge: 848a4ac fa91c59
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:22:13 2023 +0700
+
+    merge code from staging and resolve conflict
+
+commit 848a4ac4e65f5feb5822fe9bebeb84aaa46a937f
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:18:39 2023 +0700
+
+    hello in python, java, golang
+
+commit fa91c59057902e9476b4bc997eef632cb418c588
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:15:34 2023 +0700
+
+    hello in python, js, bash
+
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+commit 6d3689575a14f5cfd02a5e6707e6b5ccfb79deb0 (production)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:28:33 2023 +0700
+
+    new feature: manage cart
+
+commit e28fba0dd169671e1cb76ba74cca5e3d9887937e (origin/main, origin/HEAD, main)
+Author: Darren Shan <124250578+darrenshanx@users.noreply.github.com>
+Date:   Tue Mar 21 21:54:57 2023 +0700
+
+    create note.txt
+
+commit d51a8706c9c5d292b2240abbc139666de46b5391
+Author: son.trinh <trinhson1506@gmail.com>
+root@devops-vm:~/test-repo# git commit -m "D'"
+[staging 3d7d80c] D'
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 file_d
+root@devops-vm:~/test-repo# ll
+total 48
+drwxr-xr-x 3 root root 4096 Mar 23 21:56 ./
+drwx------ 9 root root 4096 Mar 23 21:57 ../
+drwxr-xr-x 8 root root 4096 Mar 23 21:57 .git/
+-rw-r--r-- 1 root root   29 Mar 23 19:25 README.md
+-rw-r--r-- 1 root root   35 Mar 23 20:29 feature.txt
+-rw-r--r-- 1 root root   47 Mar 23 20:35 feature_payment.txt
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_a
+-rw-r--r-- 1 root root    7 Mar 23 21:51 file_b
+-rw-r--r-- 1 root root    7 Mar 23 21:54 file_c
+-rw-r--r-- 1 root root   19 Mar 23 19:25 hello.py
+-rw-r--r-- 1 root root  103 Mar 23 21:24 hello.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:19 lab_6.txt
+-rw-r--r-- 1 root root    0 Mar 23 21:24 lab_7.txt
+-rw-r--r-- 1 root root   14 Mar 23 20:01 note.txt
+root@devops-vm:~/test-repo# vim ../.gitconfig
+root@devops-vm:~/test-repo# ls
+README.md    feature_payment.txt  file_b  hello.py   lab_6.txt  note.txt
+feature.txt  file_a               file_c  hello.txt  lab_7.txt
+root@devops-vm:~/test-repo# git revert d04dd5669d7e41cf5ea7474e8c6b922014e7afee
+[staging 379e385] Revert "C"
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 file_c
+root@devops-vm:~/test-repo# git commit
+On branch staging
+Your branch is ahead of 'origin/staging' by 2 commits.
+  (use "git push" to publish your local commits)
+
+nothing to commit, working tree clean
+root@devops-vm:~/test-repo# git log
+commit 379e3854104d7fcab961ce6b6a55f3e5e09a5a58 (HEAD -> staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 22:00:41 2023 +0700
+
+    Revert "C"
+
+    This reverts commit d04dd5669d7e41cf5ea7474e8c6b922014e7afee.
+
+commit 3d7d80c00ac3ae313e18005b9bb24fc73bd0b315
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:57:59 2023 +0700
+
+    D'
+
+commit 578829401034896cc4b5fa224e05e7a35fe479f4 (origin/staging)
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    D
+
+commit d04dd5669d7e41cf5ea7474e8c6b922014e7afee
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:54:41 2023 +0700
+
+    C
+
+commit 2e31074285dcde21c5becc2f0db4b7bf68abf5ac
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    B
+
+commit 746311427b5d32eb65b26573db0200ac7df63e80
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:51:29 2023 +0700
+
+    A
+
+commit cf916b9bcc2e61945a006b6512f88501e31fc7b1 (origin/dev, dev)
+Merge: 848a4ac fa91c59
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:22:13 2023 +0700
+
+    merge code from staging and resolve conflict
+
+commit 848a4ac4e65f5feb5822fe9bebeb84aaa46a937f
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:18:39 2023 +0700
+
+    hello in python, java, golang
+
+commit fa91c59057902e9476b4bc997eef632cb418c588
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 21:15:34 2023 +0700
+
+    hello in python, js, bash
+
+commit 2bdfbc45113be0d18fd9ac5b80ca89b690322b3d
+Author: son.trinh <trinhson1506@gmail.com>
+Date:   Thu Mar 23 20:36:14 2023 +0700
+
+    new feature: payment gateway
+
+root@devops-vm:~/test-repo# ls
+README.md  feature.txt  feature_payment.txt  file_a  file_b  hello.py  hello.txt  lab_6.txt  lab_7.txt  note.txt
+root@devops-vm:~/test-repo#
+
