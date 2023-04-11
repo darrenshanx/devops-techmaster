@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  frontend:
+    build: ./
+    volumes:
+      - .:/app
+  
+  nginx:
+    build: ./nginx
+    depends_on:
+      - frontend
+    ports:
+      - "3000:80"
+    
