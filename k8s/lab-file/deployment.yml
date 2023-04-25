@@ -5,6 +5,6 @@ metadata:
 spec: 
   containers:
   - name: todo-list
-    image: harness/todolist-samp
+    image: harness/todolist-sample:lastest
       ports:
       - containerPort: 8080
