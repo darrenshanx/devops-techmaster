@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: first-todolist
+      app: my-todolist
   template:
     metadata:
       labels:
