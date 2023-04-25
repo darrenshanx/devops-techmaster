@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Pod
+metadata:
+  name: my-todolist
+spec: 
+  containers:
+  - name: todo-list
+    image: harness/todolist-samp
+      ports:
+      - containerPort: 8080
