@@ -1,0 +1,17 @@
+version: '2.2'
+services: 
+    mysql :
+        image: mysql
+        restart: always
+        volumes: 
+            - ./obo.sql:/docker-entrypoint-initdb.d/init.sql
+        environment:
+            MYSQL_ROOT_PASSWORD: 123
+    
+    web :
+        image: obo-app:latest
+        depends_on: 
+            - mysql
+        ports: 
+            - "8080:8080"
+        restart: always
