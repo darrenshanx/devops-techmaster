@@ -39,11 +39,11 @@ $ mysql -u root -p obo < obo.sql
 
 ### Bước 2: cài đặt ứng dụng và đóng gói dưới dạng container
 
-Đầu tiên update lại config database trong tệp `application-dev.properties`. Mình đặt các biến thành env cho linh hoạt.
+Đầu tiên update lại config database trong tệp `/src/main/resources/application-dev.properties`. Mình đặt các biến thành env cho linh hoạt.
 
 ```java
 # DATABASE
-spring.datasource.url=jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?createDatabaseIfNotExist=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+spring.datasource.url=jdbc:mysql://${DB_HOST}:3306/obo?createDatabaseIfNotExist=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
 spring.datasource.username=${DB_USER}
 spring.datasource.password=${DB_PASSWORD}
 server.port=8080
