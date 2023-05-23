@@ -18,21 +18,21 @@ project demo được lấy tại github: [https://github.com/liamhubian/techmas
 ### Bước 0: tạo cluster với KinD
 
 ```bash
-$ kind create cluster --name lab --config kind.conf
+$ kind create cluster --config kind.conf --name demo
 ```
 
 ### Bước 1: triển khai cơ sở dữ liệu MySQL trong Docker
 
 ```bash
-$ docker run -d -p 3306:3306 --name obo-mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
+$ docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
 ```
 
-Copy `obo.sql` vào `obo-mysql` và thực hiện import data ban đầu:
+Copy `obo.sql` vào `mysql` và thực hiện import data ban đầu:
 
 ```bash
-$ docker cp obo.sql obo-mysql:/
+$ docker cp obo.sql mysql:/
 
-$ docker exec -it obo-mysql bash
+$ docker exec -it mysql bash
 
 $ mysql -u root -p obo < obo.sql
 ```
