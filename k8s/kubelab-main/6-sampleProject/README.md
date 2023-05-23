@@ -49,50 +49,16 @@ spring.datasource.password=${DB_PASSWORD}
 server.port=8080
 ```
 
-Sử dụng maven để build và đóng gói ứng dụng: 
+Build container Maven để deploy obo-web 
 
 ```bash
-$ mvn install
+$ 
 
-$ docker build -t duylinh158/techmaster-obo-web:1.2 .
+$ docker build -t darrenshanx/obo-web:1.0 .
 
 $ docker login
 
-$ docker push duylinh158/techmaster-obo-web:1.2
-```
-
-Viết docker compose gồm 2 service là `mysql` và `web` obo
-
-```bash
-version: '3.9'
-services: 
-  mysql:
-    image: mysql:latest
-    ports: 
-      - "3306:3306"
-    volumes: 
-      - ./obo.sql:/docker-entrypoint-initdb.d/init.sql
-    environment:
-      MYSQL_ROOT_PASSWORD: 123
-      MYSQL_DATABASE: obo
-  web:
-    image: duylinh158/techmaster-obo-web:1.2
-    ports: 
-      - "8080:8080"
-    environment:
-      DB_HOST: 192.168.1.8
-      DB_PORT: 3306
-      DB_NAME: obo
-      DB_USER: root
-      DB_PASSWORD: 123
-    restart: always
-```
-
-Chạy docker compose và mở web từ địa chỉ `localhost:8080` xem thành quả:
-
-```bash
-$ docker compose up --build -d
-```
+$ docker push darrenshanx/obo-web:1.0
 
 ### Bước 3: triển khai ứng dụng trên môi trường Kubernetes
 
