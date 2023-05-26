@@ -127,7 +127,7 @@ spec:
         envFrom:
           - configMapRef:
               name: obo-web-config
-		  - secretRef:
+	        - secretRef:
               name: obo-web-secret
         resources: {}
 status: {}
