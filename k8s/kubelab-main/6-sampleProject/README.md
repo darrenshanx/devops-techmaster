@@ -79,8 +79,6 @@ metadata:
   namespace: default
 data:
   DB_HOST: "192.168.1.8"
-  DB_PORT: "3306"
-  DB_NAME: "obo"
   DB_USER: "root"
   DB_PASSWORD: "123"
 ```
