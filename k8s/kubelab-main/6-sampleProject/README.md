@@ -24,7 +24,7 @@ $ kind create cluster --config kind.conf --name demo
 ### Bước 1: triển khai cơ sở dữ liệu MySQL trong Docker
 
 ```bash
-$ docker run -d -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
+$ docker run -d -p 3306:3306 --network kind --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
 ```
 
 Copy `obo.sql` vào `mysql` và thực hiện import data ban đầu:
@@ -65,7 +65,7 @@ $ docker push darrenshanx/obo-web:1.0
 Tạo configmap template:
 
 ```bash
-$ k create configmap obo-web-configmap --dry-run=client -o yaml > templates/obo-web-configmap.yaml
+$ kubectl create configmap obo-web-configmap --dry-run=client -o yaml > templates/obo-web-configmap.yaml
 ```
 
 Thêm các biến env vào tệp configmap template đã tạo trên:
@@ -81,10 +81,22 @@ data:
   DB_HOST: "172.17.0.2"
 ```
 
+Tạo Secret template:
+
+```bash
+apiVersion: v1
+kind: Secret
+metadata:
+  name: obo-web-secret
+type: Opaque
+stringData:
+  DB_USER: "root"
+  DB_PASSWORD: "123"
+```
 Tạo deployment template:
 
 ```bash
-$ k create deployment obo-web --image duylinh158/techmaster-obo-web:1.2 -o yaml --dry-run=client > templates/obo-web-deployment.yaml
+$ kubectl create deployment obo-web --dry-run=client --image darrenshanx/obo-web:1.1 -o yaml > templates/obo-web.deployment.yaml
 ```
 
 Thêm cấu hình `configMap` vào `obo-web-deployment`:
@@ -97,7 +109,6 @@ metadata:
   labels:
     app: obo-web
   name: obo-web
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -111,21 +122,23 @@ spec:
         app: obo-web
     spec:
       containers:
-        - image: duylinh158/techmaster-obo-web:1.2
-          name: techmaster-obo-web
-          envFrom:
+      - image: darrenshanx/obo-web:1.1
+        name: obo-web
+        envFrom:
           - configMapRef:
               name: obo-web-config
-          resources: {}
+		  - secretRef:
+              name: obo-web-secret
+        resources: {}
 status: {}
 ```
 
 Apply template:
 
 ```bash
-$ k create -f templates/obo-web-configmap.yaml
+$ kubectl create -f templates/obo-web-configmap.yaml
 
-$ k create -f templates/obo-web-deployment.yaml
+$ kubectl create -f templates/obo-web-deployment.yaml
 ```
 
 Kiểm tra các tài nguyên đã được tạo trên cụm hay chưa:
