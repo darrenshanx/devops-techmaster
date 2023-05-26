@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: obo-web
+  name: obo-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: obo-web
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: obo-web
+    spec:
+      containers:
+      - image: darrenshanx/obo-web:1.1
+        name: obo-web
+        envFrom:
+          - configMapRef:
+              name: obo-web-config
+	  - secretRef:
+              name: obo-web-secret
+        resources: {}
+status: {}
