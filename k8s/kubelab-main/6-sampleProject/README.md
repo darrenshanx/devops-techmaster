@@ -78,9 +78,7 @@ metadata:
   name: obo-web-config
   namespace: default
 data:
-  DB_HOST: "192.168.1.8"
-  DB_USER: "root"
-  DB_PASSWORD: "123"
+  DB_HOST: "172.17.0.2"
 ```
 
 Tạo deployment template:
