@@ -37,7 +37,7 @@ $ docker exec -it mysql bash
 $ mysql -u root -p obo < obo.sql
 ```
 
-Lấy IP của mysql server
+Lấy IP của `mysql` container
 
 ```bash
 $ docker network inspect kind
@@ -46,7 +46,7 @@ $ docker network inspect kind
 
 ### Bước 2: cài đặt ứng dụng và đóng gói dưới dạng container
 
-Đầu tiên update lại config database trong tệp `/src/main/resources/application-dev.properties`. Mình đặt các biến thành env cho linh hoạt.
+Cập nhật lại config database trong file cấu hình `/src/main/resources/application-dev.properties`. Đổi lại các thông tin bên dưới thành các biến của OS environment.
 
 ```java
 # DATABASE
@@ -56,16 +56,15 @@ spring.datasource.password=${DB_PASSWORD}
 server.port=8080
 ```
 
-Build container Maven để deploy obo-web 
+Build obo-web từ file Dockerfile 
 
 ```bash
-$ 
-
 $ docker build -t darrenshanx/obo-web:1.0 .
 
 $ docker login
 
 $ docker push darrenshanx/obo-web:1.0
+```
 
 ### Bước 3: triển khai ứng dụng trên môi trường Kubernetes
 
@@ -75,7 +74,7 @@ Tạo configmap template:
 $ kubectl create configmap obo-web-configmap --dry-run=client -o yaml > templates/obo-web-configmap.yaml
 ```
 
-Thêm các biến env vào tệp configmap template đã tạo trên:
+Thêm các biến môi trường **DB_HOST** (IP của `mysql` đã lấy ở trên) vào file configmap template đã tạo trên:
 
 ```bash
 apiVersion: v1
@@ -87,7 +86,7 @@ data:
   DB_HOST: "172.19.0.5"
 ```
 
-Tạo Secret template:
+Tạo Secret `template obo-web-secret.yaml`:
 
 ```bash
 apiVersion: v1
@@ -102,10 +101,10 @@ stringData:
 Tạo deployment template:
 
 ```bash
-$ kubectl create deployment obo-web --dry-run=client --image darrenshanx/obo-web:1.1 -o yaml > templates/obo-web.deployment.yaml
+$ kubectl create deployment obo-web --dry-run=client --image darrenshanx/obo-web:1.1 -o yaml > templates/obo-web-deployment.yaml
 ```
 
-Thêm cấu hình `configMap` vào `obo-web-deployment`:
+Thêm cấu hình `configMap` và `Secret` vào `obo-web-deployment.yaml`:
 
 ```bash
 apiVersion: apps/v1
