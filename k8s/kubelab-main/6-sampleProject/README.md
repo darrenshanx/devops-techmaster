@@ -48,7 +48,7 @@ $ docker network inspect kind
 
 ### Bước 2: cài đặt ứng dụng và đóng gói dưới dạng container
 
-Cập nhật lại config database trong file cấu hình `/src/main/resources/application-dev.properties`. Đổi lại các thông tin bên dưới thành các biến của OS environment.
+Cập nhật lại config database trong file cấu hình `/src/main/resources/application-dev.properties`. Đổi lại các thông tin bên dưới thành các biến của OS environment **DB_HOST**, **DB_USER**, **DB_PASSWORD**.
 
 ```java
 # DATABASE
