@@ -24,7 +24,7 @@ $ kind create cluster --config kind.conf --name demo
 ### Bước 1: triển khai cơ sở dữ liệu MySQL trong Docker
 
 ```bash
-$ docker run -d -p 3306:3306 --network kind --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
+$ docker run -d --network kind -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
 ```
 
 Copy `obo.sql` vào `mysql` và thực hiện import data ban đầu:
@@ -145,12 +145,12 @@ $ kubectl create -f templates/obo-web-deployment.yaml
 Kiểm tra các tài nguyên đã được tạo trên cụm hay chưa:
 
 ```bash
-$ k get all
+$ kubectl get all
 ```
 
 ### Bước 4: truy cập tới ứng dụng
 ```bash
-$ k port-forward deploy/obo-web --address 0.0.0.0 8080:8080
+$ kubectl port-forward deploy/obo-web --address 0.0.0.0 8080:8080
 ```
 
 <img src="images/obo-web.png" width="60%">
@@ -158,5 +158,5 @@ $ k port-forward deploy/obo-web --address 0.0.0.0 8080:8080
 ### Clean up
 Sau khi hoàn thành bài lab, học viên thực hiện xóa các tài nguyên
 ```bash
-k delete -f templates/
+kubectl delete -f templates/
 ```
