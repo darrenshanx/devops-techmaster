@@ -75,10 +75,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   creationTimestamp: null
-  name: obo-web-config
-  namespace: default
+  name: obo-web-configmap
 data:
-  DB_HOST: "172.17.0.2"
+  DB_HOST: "172.19.0.5"
 ```
 
 Tạo Secret template:
@@ -126,7 +125,7 @@ spec:
         name: obo-web
         envFrom:
           - configMapRef:
-              name: obo-web-config
+              name: obo-web-configmap
 	        - secretRef:
               name: obo-web-secret
         resources: {}
@@ -136,6 +135,8 @@ status: {}
 Apply template:
 
 ```bash
+$ kubectl create -f templates/obo-web-secret.yaml
+
 $ kubectl create -f templates/obo-web-configmap.yaml
 
 $ kubectl create -f templates/obo-web-deployment.yaml
