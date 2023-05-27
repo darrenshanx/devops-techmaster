@@ -23,11 +23,13 @@ $ kind create cluster --config kind.conf --name demo
 
 ### Bước 1: triển khai cơ sở dữ liệu MySQL trong Docker
 
+Tạo container `mysql` cùng db obo
+
 ```bash
 $ docker run -d --network kind -p 3306:3306 --name mysql -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=obo mysql:latest
 ```
 
-Copy `obo.sql` vào `mysql` và thực hiện import data ban đầu:
+Copy `obo.sql` vào `mysql` và thực hiện import data ban đầu vào db obo:
 
 ```bash
 $ docker cp obo.sql mysql:/
