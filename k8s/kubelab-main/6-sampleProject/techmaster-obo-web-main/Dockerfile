@@ -33,7 +33,7 @@ COPY . /techmaster-obo-web
 
 WORKDIR /techmaster-obo-web
 
-ENV DB_HOST="172.17.0.2"
+ENV DB_HOST="172.19.0.5"
 ENV DB_USER="root"
 ENV DB_PASSWORD="123"
 
