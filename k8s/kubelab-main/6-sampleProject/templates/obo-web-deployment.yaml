@@ -22,7 +22,7 @@ spec:
         name: obo-web
         envFrom:
           - configMapRef:
-              name: obo-web-config
+              name: obo-web-configmap
           - secretRef:
               name: obo-web-secret
         resources: {}
