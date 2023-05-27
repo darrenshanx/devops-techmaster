@@ -37,6 +37,13 @@ $ docker exec -it mysql bash
 $ mysql -u root -p obo < obo.sql
 ```
 
+Lấy IP của mysql server
+
+```bash
+$ docker network inspect kind
+```
+
+
 ### Bước 2: cài đặt ứng dụng và đóng gói dưới dạng container
 
 Đầu tiên update lại config database trong tệp `/src/main/resources/application-dev.properties`. Mình đặt các biến thành env cho linh hoạt.
