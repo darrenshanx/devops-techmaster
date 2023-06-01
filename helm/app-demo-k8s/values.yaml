@@ -414,7 +414,7 @@ nodeSelector: {}
 podAnnotations: {}
 podSecurityContext: {}
 redis:
-  architecture: standalone
+  architecture: replication
   auth:
     enabled: true
     existingSecret: ""
