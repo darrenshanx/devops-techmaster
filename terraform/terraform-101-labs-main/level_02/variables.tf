@@ -7,7 +7,7 @@ variable "region" {
 variable "bucket_name" {
   description = "S3 bucket name."
   type        = string
-  default     = "my-level-2-bucket"
+  default     = "sontrinh-level-2-bucket"
 }
 
 variable "block_public_acls" {
@@ -24,7 +24,7 @@ variable "block_public_policy" {
 variable "ignore_public_acls" {
   description = "Whether Amazon S3 should ignore public ACLs for this bucket."
   type        = bool
-  default     = true
+  default     = false
 }
 variable "restrict_public_buckets" {
   description = "Whether Amazon S3 should restrict public bucket policies for this bucket."
