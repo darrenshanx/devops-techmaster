@@ -14,9 +14,9 @@ provider "aws" {
 }
 
 
-module "default_subnet" {
-  source = "./module_data_subnet" #get data only
-}
+#module "default_subnet" {
+#  source = "./module_data_subnet" #get data only
+#}
 
 module "ec2_with_rds" {
   source            = "./module"
@@ -33,11 +33,10 @@ output "rds_endpoint" {
   value = module.ec2_with_rds.rds_instance
 }
 
-output "rds_db" {
-  value = module.default_subnet.default_subnet_id
-}
+#output "rds_db" {
+# value = module.default_subnet.default_subnet_id
+#}
 
-
-output "port_fwd_rds" {
-  value = "ssh -i private_key.pem 5432:${module.default_subnet.rds_db}:5432 ubuntu@${module.ec2_with_rds.ec2_instance_public_ip}"
-}
+#output "port_fwd_rds" {
+#  value = "ssh -i private_key.pem 5432:${module.default_subnet.rds_db}:5432 ubuntu@${module.ec2_with_rds.ec2_instance_public_ip}"
+#}
